@@ -123,12 +123,14 @@ public class RoundCornerProgressView: UIView {
     }
     
     private func setupUserImageView() {
+        if userView.superview == nil {
+            userView.frame = CGRect(origin: .zero, size:  CGSize(width: frame.height, height: frame.height))
+            addSubview(userView)
+        }
         userView.layer.cornerRadius = frame.height / 2
-        userView.frame = CGRect(origin: .zero, size:  CGSize(width: frame.height, height: frame.height))
         userView.layer.borderColor = imageBorder.cgColor
         userView.layer.borderWidth = 2
         userView.clipsToBounds = true
-        addSubview(userView)
     }
     
     private func setupTrackView() {
