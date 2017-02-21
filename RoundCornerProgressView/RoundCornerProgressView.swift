@@ -85,7 +85,6 @@ public class RoundCornerProgressView: UIView {
             } else {
                 userView.frame = CGRect(origin: CGPoint(x:frame.width * progress - (progressView.frame.size.height / 2),y:0), size: CGSize(width: progressView.frame.size.height, height: progressView.frame.size.height))
             }
-            
         }
     }
     
