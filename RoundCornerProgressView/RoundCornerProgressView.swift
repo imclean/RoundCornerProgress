@@ -19,6 +19,7 @@ public class RoundCornerProgressView: UIView {
     
     private let trackView = UIView(frame: .zero)
     private let progressView = UIView(frame: .zero)
+    private let userView = UIImageView(frame: .zero)
     
     // MARK: Inspectable properties
     
@@ -31,6 +32,12 @@ public class RoundCornerProgressView: UIView {
     @IBInspectable public var labelColor: UIColor = UIColor.black {
         didSet {
             progressLabel.textColor = labelColor
+        }
+    }
+    
+    @IBInspectable public var imageBorder: UIColor = UIColor.black {
+        didSet {
+            userView.layer.borderColor = imageBorder.cgColor
         }
     }
     
@@ -65,12 +72,28 @@ public class RoundCornerProgressView: UIView {
         }
     }
     
-    @IBInspectable public var progress: CGFloat = 0.3 {
+    @IBInspectable public var progress: CGFloat = 0.0 {
         didSet {
             progress = max(0, min(1, progress))
             progressView.frame = CGRect(origin: progressView.frame.origin, size: CGSize(width: frame.width * progress, height: frame.height))
             progressView.roundCorner(roundingCorners: progressRoundCorners, cornerRadius: CGSize(width: frame.size.height / 2, height: frame.size.height / 2))
             progressLabel.text = String(format: "%d%%", Int(progress * 100))
+            if progress < 0.12 {
+                userView.frame = CGRect(origin: progressView.frame.origin, size: CGSize(width: progressView.frame.size.height, height: progressView.frame.size.height))
+            } else if progress > 0.88 {
+                userView.frame = CGRect(origin: CGPoint(x:frame.width  - progressView.frame.size.height,y:0), size: CGSize(width: progressView.frame.size.height, height: progressView.frame.size.height))
+            } else {
+                userView.frame = CGRect(origin: CGPoint(x:frame.width * progress - (progressView.frame.size.height / 2),y:0), size: CGSize(width: progressView.frame.size.height, height: progressView.frame.size.height))
+            }
+            
+        }
+    }
+    
+    @IBInspectable public var userImage: UIImage? = nil {
+        didSet {
+            userView.image = userImage
+            userView.clipsToBounds = true
+            userView.contentMode = .scaleAspectFill
         }
     }
     
@@ -96,6 +119,16 @@ public class RoundCornerProgressView: UIView {
         setupTrackView()
         setupProgressView()
         setupProgressLabel()
+        setupUserImageView()
+    }
+    
+    private func setupUserImageView() {
+        userView.layer.cornerRadius = frame.height / 2
+        userView.frame = CGRect(origin: .zero, size:  CGSize(width: frame.height, height: frame.height))
+        userView.layer.borderColor = imageBorder.cgColor
+        userView.layer.borderWidth = 2
+        userView.clipsToBounds = true
+        addSubview(userView)
     }
     
     private func setupTrackView() {
