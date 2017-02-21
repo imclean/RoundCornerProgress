@@ -19,7 +19,7 @@ public class RoundCornerProgressView: UIView {
     
     private let trackView = UIView(frame: .zero)
     private let progressView = UIView(frame: .zero)
-    private let userView = UIImageView(frame: .zero)
+    public let userView = UIImageView(frame: .zero)
     
     // MARK: Inspectable properties
     
