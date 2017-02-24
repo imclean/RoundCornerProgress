@@ -14,12 +14,13 @@ public class RoundCornerProgressView: UIView {
     // MARK: Public properties
     
     public let progressLabel = UILabel(frame: .zero)
-    
     // MARK: Private properties
     
     private let trackView = UIView(frame: .zero)
     private let progressView = UIView(frame: .zero)
     public let userView = UIImageView(frame: .zero)
+    public let paidTick = UIImageView(frame: .zero)
+    public var totalAmount:Double = 0.0
     
     // MARK: Inspectable properties
     
@@ -77,7 +78,6 @@ public class RoundCornerProgressView: UIView {
             progress = max(0, min(1, progress))
             progressView.frame = CGRect(origin: progressView.frame.origin, size: CGSize(width: frame.width * progress, height: frame.height))
             progressView.roundCorner(roundingCorners: progressRoundCorners, cornerRadius: CGSize(width: frame.size.height / 2, height: frame.size.height / 2))
-            progressLabel.text = String(format: "%d%%", Int(progress * 100))
             if progress < 0.12 {
                 userView.frame = CGRect(origin: progressView.frame.origin, size: CGSize(width: progressView.frame.size.height, height: progressView.frame.size.height))
             } else if progress > 0.88 {
@@ -125,6 +125,11 @@ public class RoundCornerProgressView: UIView {
         if userView.superview == nil {
             userView.frame = CGRect(origin: .zero, size:  CGSize(width: frame.height, height: frame.height))
             addSubview(userView)
+            paidTick.frame = CGRect(x: 24, y: (self.frame.size.height / 2) - 12, width: 24, height: 24)
+            paidTick.isHidden = false
+            paidTick.contentMode = .scaleAspectFit
+            paidTick.clipsToBounds = true
+            addSubview(paidTick)
         }
         userView.layer.cornerRadius = frame.height / 2
         userView.layer.borderColor = imageBorder.cgColor
@@ -152,7 +157,6 @@ public class RoundCornerProgressView: UIView {
         progressLabel.textAlignment = .center
         bringSubview(toFront: progressLabel)
         progressLabel.center = CGPoint(x: frame.width / CGFloat(2), y: frame.height / CGFloat(2))
-        progressLabel.text = String(format: "%d%%", Int(progress * 100))
         progressLabel.textColor = labelColor
         progressLabel.isHidden = !shouldDisplayProgressLabel
         progressLabel.font = labelFont
