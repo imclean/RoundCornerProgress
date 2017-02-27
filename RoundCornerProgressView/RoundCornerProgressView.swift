@@ -15,11 +15,15 @@ public class RoundCornerProgressView: UIView {
     
     public let progressLabel = UILabel(frame: .zero)
     // MARK: Private properties
+    public var requestPayment:Bool = true
     
     private let trackView = UIView(frame: .zero)
     private let progressView = UIView(frame: .zero)
+    
     public let userView = UIImageView(frame: .zero)
     public let paidTick = UIImageView(frame: .zero)
+    public let requestImage = UIImageView(frame: .zero)
+    public let requestText = UILabel(frame: .zero)
     public var totalAmount:Double = 0.0
     
     // MARK: Inspectable properties
@@ -125,12 +129,20 @@ public class RoundCornerProgressView: UIView {
         if userView.superview == nil {
             userView.frame = CGRect(origin: .zero, size:  CGSize(width: frame.height, height: frame.height))
             addSubview(userView)
-            paidTick.frame = CGRect(x: 24, y: (self.frame.size.height / 2) - 12, width: 24, height: 24)
-            paidTick.isHidden = false
+            paidTick.frame = CGRect(x: 16, y: (self.frame.size.height / 2) - 12, width: 24, height: 24)
+            
             paidTick.contentMode = .scaleAspectFit
             paidTick.clipsToBounds = true
             addSubview(paidTick)
+            
+            requestImage.frame = CGRect(x: self.frame.size.width - 40, y: (self.frame.size.height / 2) - 12, width: 24, height: 24)
+            
+            requestImage.contentMode = .scaleAspectFit
+            requestImage.clipsToBounds = true
+            addSubview(requestImage)
         }
+        paidTick.isHidden = self.progress != 1.0
+        requestImage.isHidden = !requestPayment
         userView.layer.cornerRadius = frame.height / 2
         userView.layer.borderColor = imageBorder.cgColor
         userView.layer.borderWidth = 2
@@ -153,13 +165,17 @@ public class RoundCornerProgressView: UIView {
     }
     
     private func setupProgressLabel() {
-        progressLabel.frame = CGRect(origin: .zero, size: CGSize(width: frame.width, height: frame.height))
-        progressLabel.textAlignment = .center
-        bringSubview(toFront: progressLabel)
-        progressLabel.center = CGPoint(x: frame.width / CGFloat(2), y: frame.height / CGFloat(2))
+        progressLabel.frame = CGRect(x: 48, y: (self.frame.size.height / 2) - 9, width: 150, height: 18)
+        progressLabel.textAlignment = .left
         progressLabel.textColor = labelColor
-        progressLabel.isHidden = !shouldDisplayProgressLabel
-        progressLabel.font = labelFont
+        progressLabel.isHidden = self.progress < 0.3
         addSubview(progressLabel)
+        bringSubview(toFront: progressLabel)
+        
+        requestText.frame = CGRect(x: (self.frame.size.width / 2), y: (self.frame.size.height / 2) - 9, width: (self.frame.size.width / 2) - 50, height: 18)
+        requestText.textAlignment = .right
+        requestText.isHidden = !shouldDisplayProgressLabel
+        addSubview(requestText)
+        bringSubview(toFront: requestText)
     }
 }

@@ -15,15 +15,21 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        progressView.progress = 1.0
+        progressView.progress = 0.1
         progressView.paidTick.image = UIImage(named: "PaidTick")
-        // Do any additional setup after loading the view, typically from a nib.
+        let attributed = NSMutableAttributedString(string: "£80 of £80", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 14)])
+        attributed.addAttributes( [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 14)], range: NSMakeRange(attributed.string.characters.count - 3, 3))
+        progressView.progressLabel.attributedText = attributed
+        progressView.requestImage.image = UIImage(named: "RequestImage")
+        progressView.requestText.text = NSLocalizedString("Request payment", comment: "")
+        progressView.requestText.textColor = UIColor(red:0.20, green:0.65, blue:0.71, alpha:1.00)
+        progressView.requestText.font = UIFont.systemFont(ofSize: 12)
     }
 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.progressView.progress = 1.0
+        self.progressView.progress = 0.0
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

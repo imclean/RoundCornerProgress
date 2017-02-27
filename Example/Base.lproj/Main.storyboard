@@ -22,10 +22,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFN-If-PI8" customClass="RoundCornerProgressView" customModule="RoundCornerProgressView">
-                                <rect key="frame" x="20" y="60" width="335" height="80"/>
+                                <rect key="frame" x="9" y="60" width="357" height="64"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="llE-mQ-K7g"/>
+                                    <constraint firstAttribute="height" constant="64" id="llE-mQ-K7g"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="trackTintColor">
@@ -41,15 +41,15 @@
                                         <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="progress">
-                                        <real key="value" value="1"/>
+                                        <real key="value" value="0.0"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="qFN-If-PI8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="PA1-yi-I5k"/>
-                            <constraint firstAttribute="trailing" secondItem="qFN-If-PI8" secondAttribute="trailing" constant="20" id="Te8-fR-jIx"/>
+                            <constraint firstItem="qFN-If-PI8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="9" id="PA1-yi-I5k"/>
+                            <constraint firstAttribute="trailing" secondItem="qFN-If-PI8" secondAttribute="trailing" constant="9" id="Te8-fR-jIx"/>
                             <constraint firstItem="qFN-If-PI8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="40" id="xqn-aT-Hmk"/>
                         </constraints>
                     </view>
