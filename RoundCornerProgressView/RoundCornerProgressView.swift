@@ -79,15 +79,30 @@ public class RoundCornerProgressView: UIView {
     
     @IBInspectable public var progress: CGFloat = 0.0 {
         didSet {
-            progress = max(0, min(1, progress))
-            progressView.frame = CGRect(origin: progressView.frame.origin, size: CGSize(width: frame.width * progress, height: frame.height))
-            progressView.roundCorner(roundingCorners: progressRoundCorners, cornerRadius: CGSize(width: frame.size.height / 2, height: frame.size.height / 2))
-            if progress < 0.12 {
-                userView.frame = CGRect(origin: progressView.frame.origin, size: CGSize(width: progressView.frame.size.height, height: progressView.frame.size.height))
-            } else if progress > 0.88 {
-                userView.frame = CGRect(origin: CGPoint(x:frame.width  - progressView.frame.size.height,y:0), size: CGSize(width: progressView.frame.size.height, height: progressView.frame.size.height))
+            self.progress = max(0, min(1, self.progress))
+            if progress > 0.4 {
+                progressLabel.isHidden = false
+                requestImage.isHidden = true
+                requestText.isHidden = true
+                if progress == 1.0 {
+                    paidTick.isHidden = false
+                }
             } else {
-                userView.frame = CGRect(origin: CGPoint(x:frame.width * progress - (progressView.frame.size.height / 2),y:0), size: CGSize(width: progressView.frame.size.height, height: progressView.frame.size.height))
+                paidTick.isHidden = true
+                progressLabel.isHidden = true
+                requestImage.isHidden = false
+                requestText.isHidden = false
+            }
+            UIView.animate(withDuration: 0.2) { 
+                self.progressView.frame = CGRect(origin: self.progressView.frame.origin, size: CGSize(width: self.frame.width * self.progress, height: self.frame.height))
+                self.progressView.roundCorner(roundingCorners: self.progressRoundCorners, cornerRadius: CGSize(width: self.frame.size.height / 2, height: self.frame.size.height / 2))
+                if self.progress < 0.12 {
+                    self.userView.frame = CGRect(origin: self.progressView.frame.origin, size: CGSize(width: self.progressView.frame.size.height, height: self.progressView.frame.size.height))
+                } else if self.progress > 0.88 {
+                    self.userView.frame = CGRect(origin: CGPoint(x:self.frame.width  - self.progressView.frame.size.height,y:0), size: CGSize(width: self.progressView.frame.size.height, height: self.progressView.frame.size.height))
+                } else {
+                    self.userView.frame = CGRect(origin: CGPoint(x:self.frame.width * self.progress - (self.progressView.frame.size.height / 2),y:0), size: CGSize(width: self.progressView.frame.size.height, height: self.progressView.frame.size.height))
+                }
             }
         }
     }

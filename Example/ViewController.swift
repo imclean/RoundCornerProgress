@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        progressView.progress = 0.1
         progressView.paidTick.image = UIImage(named: "PaidTick")
         let attributed = NSMutableAttributedString(string: "£80 of £80", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 14)])
         attributed.addAttributes( [NSFontAttributeName:UIFont.boldSystemFont(ofSize: 14)], range: NSMakeRange(attributed.string.characters.count - 3, 3))
@@ -29,7 +28,10 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.progressView.progress = 0.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.progressView.progress = 1.0
+        }
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
