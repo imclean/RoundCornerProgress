@@ -93,7 +93,7 @@ public class RoundCornerProgressView: UIView {
                 requestImage.isHidden = false
                 requestText.isHidden = false
             }
-            UIView.animate(withDuration: animationLength) {
+            UIView.animate(withDuration: animationLength, delay: 0.0, options: .curveEaseInOut, animations: { 
                 self.progressView.frame = CGRect(origin: self.progressView.frame.origin, size: CGSize(width: self.frame.width * self.progress, height: self.frame.height))
                 self.progressView.roundCorner(roundingCorners: self.progressRoundCorners, cornerRadius: CGSize(width: self.frame.size.height / 2, height: self.frame.size.height / 2))
                 if self.progress < 0.12 {
@@ -103,6 +103,8 @@ public class RoundCornerProgressView: UIView {
                 } else {
                     self.userView.frame = CGRect(origin: CGPoint(x:self.frame.width * self.progress - (self.progressView.frame.size.height / 2),y:0), size: CGSize(width: self.progressView.frame.size.height, height: self.progressView.frame.size.height))
                 }
+            }) { (complete) in
+                
             }
         }
     }
